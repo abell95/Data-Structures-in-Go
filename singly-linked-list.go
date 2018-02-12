@@ -1,4 +1,4 @@
-//This is pretty broken right now
+//Needs constructor method, search method and delete method
 
 package main
 
@@ -15,29 +15,33 @@ type List struct {
 	first *Link
 }
 
-func appendLink(num int) {
-	newLink := *Link
+func (l List) appendLink(num int) {
+	newLink :=  new(Link)
 	newLink.val, newLink.next = num, nil
 	
-	var iter *Link = List.first
+	var iter *Link = l.first
 	if iter == nil {
-		List.first = x
+		l.first = newLink
 	}
-	for x.next != nil {
-		x = x.next
+	for iter.next != nil {
+		iter = iter.next
 	}
-	var appended = Link{val, nil}
-	x.next = &appended
+	iter.next = newLink
 }
 
-//return int slice containing values of list
+//fill and print slice containing values of list
 func (l List) printList() {
-	x := l.first
-	s := []int{}
-	for x.next != nil {
-		s = append(s, x.val)
-		x = x.next
+	printer := l.first
+	if printer == nil {
+		fmt.Println("List empty")
+		return
 	}
+	s := []int{}
+	for printer.next != nil {
+		s = append(s, printer.val)
+		printer = printer.next
+	}
+	s = append(s, printer.val) //catches last element
 	fmt.Println(s)
 }
 
@@ -45,5 +49,7 @@ func main() {
 	listLink := Link{10, nil}
 	linkList := List{&listLink}
 	linkList.appendLink(5)
+	linkList.appendLink(7)
+	linkList.appendLink(9)
 	linkList.printList()
 }
