@@ -36,7 +36,6 @@ func (l List) removeFromList(remove int) {
 		return
 	} else if iter.val == remove {
 		l.first = nil
-		return
 	}
 	for iter.next.val != remove {
 		iter = iter.next
