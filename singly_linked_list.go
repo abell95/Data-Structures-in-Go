@@ -29,6 +29,21 @@ func (l List) appendLink(num int) {
 	iter.next = newLink
 }
 
+func (l List) removeFromList(remove int) {
+	iter := l.first
+	if iter == nil {
+		fmt.Println("List is empty")
+		return
+	} else if iter.val == remove {
+		l.first = nil
+		return
+	}
+	for iter.next.val != remove {
+		iter = iter.next
+	}
+	iter.next = iter.next.next
+}
+
 //fill and print slice containing values of list
 func (l List) printList() {
 	printer := l.first
@@ -51,5 +66,6 @@ func main() {
 	linkList.appendLink(5)
 	linkList.appendLink(7)
 	linkList.appendLink(9)
+	linkList.removeFromList(5)
 	linkList.printList()
 }
