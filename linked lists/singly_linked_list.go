@@ -29,6 +29,7 @@ func createListContaining(args ...int) *List {
 	for _, n := range args {
 		newList.appendLink(n)
 	}
+	newList.size = len(args)
 	return newList
 }
 
@@ -106,6 +107,7 @@ func (l List) printList() {
 	fmt.Println(s)
 }
 
+//print elems from location x to y in the list
 func (l List) printFromXToY(x, y int) {
 	printer := l.first
 	for i := 0; i < x; i++ {
@@ -119,9 +121,20 @@ func (l List) printFromXToY(x, y int) {
 
 }
 
-// func (l List) numIsInList() (bool, int) {
-// 	return false, 0
-// }
+func (l List) numIsInList(num int) bool {
+	iter := l.first
+	if iter == nil {
+		fmt.Println("Empty list")
+		return false
+	}
+	for iter != nil {
+		if iter.val == num {
+			return true
+		}
+		iter = iter.next
+	}
+	return false
+}
 
 func main() {
 	linkList := createEmptyList()
@@ -137,4 +150,10 @@ func main() {
 
 	anotherList := createEmptyList()
 	anotherList.printList()
+
+	moreList := createListContaining(4, 5, 6, 7, 8)
+	moreList.printList()
+	fmt.Println(moreList.getListSize())
+	fmt.Println(moreList.numIsInList(7))
+	fmt.Println(moreList.numIsInList(12))
 }
