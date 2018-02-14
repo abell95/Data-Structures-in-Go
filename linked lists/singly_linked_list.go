@@ -31,6 +31,17 @@ func (l List) appendLink(num int) {
 	iter.next = newLink
 }
 
+func (l List) appendMultipleLinks(args ...int) {
+	//Do the thing it says
+	for x := range args {
+		l.appendLink(x)
+	}
+}
+
+func (l List) prependLink(num int) {
+	//add link to start of list
+}
+
 func (l List) removeFromList(remove int) {
 	iter := l.first
 	if iter == nil {
@@ -43,6 +54,15 @@ func (l List) removeFromList(remove int) {
 		iter = iter.next
 	}
 	iter.next = iter.next.next
+}
+
+func (l List) countListSize() int {
+	ctr := 0
+	iter := l.first
+	if iter == nil {
+		return ctr
+	}
+	return ctr
 }
 
 //fill and print slice containing values of list
@@ -59,6 +79,17 @@ func (l List) printList() {
 	}
 	s = append(s, printer.val) //catches last element
 	fmt.Println(s)
+}
+
+func (l List) printFromXToY(x, y int) {
+	printer := l.first
+	if printer == nil {
+		fmt.Println("List empty")
+		return
+	}
+	for printer != nil {
+
+	}
 }
 
 func main() {
