@@ -6,20 +6,22 @@ import (
 	"fmt"
 )
 
+// Link is the main component of list
 type Link struct {
-	val int
+	val  int
 	next *Link
 }
 
+// List points to head of list
 type List struct {
 	first *Link
 }
 
 func (l List) appendLink(num int) {
-	newLink :=  new(Link)
+	newLink := new(Link)
 	newLink.val, newLink.next = num, nil
-	
-	var iter *Link = l.first
+
+	iter := l.first
 	if iter == nil {
 		l.first = newLink
 	}
