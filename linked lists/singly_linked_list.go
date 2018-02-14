@@ -8,8 +8,9 @@ import (
 
 // Link is the main component of list
 type Link struct {
-	val  int
-	next *Link
+	val   int
+	index int
+	next  *Link
 }
 
 // List points to head of list
@@ -40,19 +41,22 @@ func (l *List) appendLink(num int) {
 	iter := l.first
 	if iter == nil {
 		l.first = newLink
+		newLink.index = 0
 		return
 	}
+	indexCtr := 1
 	for iter.next != nil {
 		iter = iter.next
+		indexCtr++
 	}
 	iter.next = newLink
-	l.size++
+	newLink.index = indexCtr
+	l.size = indexCtr + 1
 }
 
 func (l *List) appendMultipleLinks(args ...int) {
 	for _, x := range args {
 		l.appendLink(x)
-		l.size++
 	}
 }
 
@@ -74,6 +78,10 @@ func (l List) prependMultipleLinks(args ...int) {
 		l.prependLink(n)
 	}
 }
+
+// func (l List) insertAtPosition(index, num int) {
+
+// }
 
 //this breaks everything :(
 // func (l *List) removeFromList(remove int) {
@@ -97,22 +105,12 @@ func (l List) prependMultipleLinks(args ...int) {
 
 // }
 
-// func (l *List) removeFirstXOf(num, qty int) {
+// func (l *List) removeFirstXInstancesOf(num, qty int) {
 
 // }
 
-func (l List) getListSize() int { //this needs work
-	iter := l.first
-	if iter == nil {
-		return 0
-	}
-	ctr := 1
-	for iter.next != nil {
-		ctr++
-		iter = iter.next
-	}
-	return ctr
-	//return l.size
+func (l List) getListSize() int {
+	return l.size
 }
 
 //fill and print slice containing values of list
@@ -132,32 +130,36 @@ func (l List) printList() {
 }
 
 //print elems from zero-based position x to y in the list
-//Doesn't work so great yet
 func (l List) printFromXToY(x, y int) {
 	if y < x {
 		fmt.Println("I can't print backwards, dummy")
 		return
 	}
 	printer := l.first
-	preCtr := 0
-	for preCtr < x {
+	if printer == nil {
+		fmt.Println("List empty")
+		return
+	}
+	ctr := 0
+	for ctr < x {
 		printer = printer.next
+		ctr++
 		if printer == nil {
-			fmt.Println("Index out of range")
+			fmt.Println("Inner bound does not exist")
 			return
 		}
 	}
 	s := []int{}
-	ctr := x
+	s = append(s, printer.val)
 	for ctr < y {
 		printer = printer.next
+		ctr++
 		if printer == nil {
-			fmt.Println("Outer range does not exist")
+			fmt.Println("Outer bound does not exist")
 			return
 		}
 		s = append(s, printer.val)
 	}
-	s = append(s, printer.val) //catch last value
 	fmt.Println(s)
 }
 
@@ -197,7 +199,7 @@ func main() {
 	moreList := createListContaining(4, 5, 6, 7, 8)
 	moreList.printList()
 	fmt.Println(moreList.getListSize())
-	fmt.Println(moreList.numIsInList(7)) //outputs true
-	fmt.Println(moreList.numIsInList(8))
+	fmt.Println(moreList.numIsInList(7))  //outputs true
+	fmt.Println(moreList.numIsInList(8))  //outputs true
 	fmt.Println(moreList.numIsInList(12)) //outputs false
 }
