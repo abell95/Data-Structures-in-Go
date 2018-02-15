@@ -156,6 +156,7 @@ func (l List) printFromXToY(x, y int) {
 		ctr++
 		if printer == nil {
 			fmt.Println("Outer bound does not exist")
+			fmt.Println(s)
 			return
 		}
 		s = append(s, printer.val)
