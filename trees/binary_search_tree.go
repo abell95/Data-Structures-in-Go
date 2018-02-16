@@ -17,29 +17,34 @@ type Root struct {
 	Root *Node
 }
 
-func initializeTree() Root {
+func initializeBSTree(val int) Root {
 	newTree := Root{nil}
+	firstNode := new(Node)
+	firstNode.Value = val
+	firstNode.Parent = nil
+	firstNode.LeftChild, firstNode.RightChild = nil, nil
+	newTree.Root = firstNode
 	return newTree
 }
 
-func (r *Root) addNode(val int) {
-	newNode := new(Node)
-	newNode.Parent, newNode.LeftChild, newNode.RightChild = nil, nil, nil
-	newNode.Value = val
-	if r.Root == nil {
-		r.Root = newNode
-		return
-	}
-	adder := r.Root
-	if adder.Value > val {
-		r.addNode(adder.RightChild)
-	} else if adder.Value <= val {
+// func (r *Root) addNode(val int, loc *Node) {
+// 	newNode := new(Node)
+// 	newNode.Parent, newNode.LeftChild, newNode.RightChild = nil, nil, nil
+// 	newNode.Value = val
+// 	if r.Root == nil {
+// 		r.Root = newNode
+// 		return
+// 	}
+// 	adder := r.Root
+// 	if adder.Value > val {
+// 		r.addNode(adder.RightChild, adder)
+// 	} else if adder.Value <= val {
 
-	}
-	if adder == nil {
-		adder = newNode
-	}
-}
+// 	}
+// 	if adder == nil {
+// 		adder = newNode
+// 	}
+// }
 
 func (r *Root) foundElement(val int) (bool, int) {
 	traverser := r.Root
@@ -48,12 +53,14 @@ func (r *Root) foundElement(val int) (bool, int) {
 
 		}
 	}
+	return false, 0
 }
 
 func main() {
 	fmt.Println("hello")
-	tree := initializeTree()
-	tree.addNode(5)
-	fmt.Println(tree)
-	tree.foundElement(5)
+	tree := initializeBSTree(25)
+	fmt.Println(tree.Root.Value)
+	//tree.addNode(5)
+	//fmt.Println(tree)
+	//tree.foundElement(5)
 }
